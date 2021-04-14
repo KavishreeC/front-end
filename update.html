@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>edit form</h2>
+  <h4 id="showtable" class="justify-content-center">show data</h4>
+  <div>
+    <div id="userdata">
+      <ul id="users">users</ul>
+      <li>
+        <p>
+          <strong>name:</strong>
+         
+          <input type="text" class="edit name"/>
+        </p>
+        <p>
+          <strong>email:</strong>
+         
+          <input type="email" class="edit email"/>
+        </p>
+        <p>
+          <strong>phone:</strong>
+        
+          <input type="text" class="edit phone"/>
+        </p>
+        <p><strong>id:</strong>
+         
+          <input type="text" class="edit id"/>
+        </p>
+        <button type="button" class="btn btn-primary" id="edit" >edit</button>
+        <button type="button" class="btn btn-primary"id="save">save</button>
+      </li>
+    </div>
+  </div>
+  <div>
+  <span class="noedit id"></span>
+  <span class="noedit name"></span>
+  <span class="noedit email"></span>
+  <span class="noedit phone"></span>
+</div>
+</div>
+
+</body>
+</html>
+<script>
+  var user_id;
+    $( window ).on( "load", function() {
+      function GetURLParameter(sParam)
+      {
+          var sPageURL = window.location.search.substring(1);
+          var sURLVariables = sPageURL.split('&');
+          for (var i = 0; i < sURLVariables.length; i++) 
+          {
+              var sParameterName = sURLVariables[i].split('=');
+              if (sParameterName[0] == sParam) 
+              {
+                  return sParameterName[1];
+              }
+          }
+      }
+  
+ user_id = GetURLParameter('id');
+    });
+
+$( "#edit" ).on( "click", function() {
+view(user_id);
+console.log("userid",user_id);
+function view(btn1)
+  {
+      btn=btn1;
+      console.log("id",btn);
+      function showdata(temp)
+        {
+          var show_data='';
+          u=temp.data;
+              id=u.id,
+              name=u.username,
+              email=u.email,
+              phone=u.phone
+              console.log("success",id,email,name,phone);
+              $(".id").val(id);
+              $(".name").val(name);
+              $(".email").val(email);
+              $(".phone").val(phone);
+       
+      
+        }
+      $.ajax({
+          type:"GET",    
+          datatype: 'JSON',
+          url: "http://localhost:3000/api/v1/users/"+$(this).attr("btn"),
+          
+           success:
+          function (temp){
+              showdata(temp);
+      }});
+  }
+});
+  // ..................................edit...............
+
+  $( "#save").on( "click", function() {
+    save(user_id);
+    function save(userid)
+  {
+    u_id=userid;
+    $li=$("li");
+    var user = 
+    {
+      id: $li.find('input.id').val(),
+      username: $li.find('input.name').val(),
+      email: $li.find('input.email').val(),
+      phone: $li.find('input.phone').val(),
+    }
+    function display(temp)
+    {
+      var show_data='';
+            u=temp.data;
+                id=u.id
+                show_data += '<ul>'
+                show_data += '<li>'+'user id      : '+' '+u.id+ '</li>'
+                show_data += '<li>'+'user name    : ' +''+u.username+ '</li>'
+                show_data += '<li>' +'user email  : ' +''+u.email+ '</li>'
+                show_data += '<li>' +'user phone  : ' +''+u.phone+ '</li>'
+                show_data += '<td>' +'<button type="button" class="btn btn-primary" id="button1" onclick="edit('+id+')" data-id="{{id}}"> edit</button>'+ '</td>'
+                show_data += '</ul>'
+
+                console.log("success",u.username);
+             $('#showtable').append(show_data);
+        
+    }
+    
+    console.log("print",u_id);
+    $.ajax({
+         
+          type:"PUT",    
+          datatype: 'JSON',
+          url: "http://localhost:3000/api/v1/users/"+$(this).attr("u_id"),
+          data:user,
+           success:
+          function (temp){
+          display(temp);
+          },
+          error: function()
+          {
+            alert("error updating order")
+          }
+      });
+}
+  });
+</script>

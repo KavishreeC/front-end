@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>USER FORM</h1>
+    <form class="form">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username"  name="username">
+          </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email"  name="email">
+          </div>
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+        </div>
+        <button type="button" class="btn btn-primary" id="submit" onlick="submit1()">Submit</button>  
+    </form>
+  
+</div>
+
+</body>
+</html>
+<script>
+function submit1()
+{    
+    $form=$(".form");
+    var user = 
+    {
+      id: $form.find('input#id').val(),
+      username: $form.find('input#username').val(),
+      email: $form.find('input#email').val(),
+      phone: $form.find('input#phone').val(),
+    }
+
+    $.ajax({
+                type: "POST",
+                url: "http://localhost:3000/api/v1/users",
+                data: '{user: ' + JSON.stringify(user) + '}',
+                dataType: "json",
+                success: function (response) {
+                    alert("User has been added successfully.");
+                    window.location.reload();
+                    window.location.href="sample.html"
+                }
+            });
+
+
+}
+</script>

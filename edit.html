@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="assets/css/edit.css">
+  
+</head>
+
+<body>
+
+<div class="container main my-4">
+ 
+  <div id="show">
+  <h3>show data</h3>
+    <h4 id="showtable"></h4>
+    <div class="form">
+      <h2 class="head">Edit user data</h2>
+    <form>
+        <div class="form-group">
+            <label for="id">Id:</label>
+            <input type="text" class="form-control" id="id"  name="id" disabled>
+          </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username"  name="username">
+          </div>
+        
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email"  name="email">
+          </div>
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" class="form-control" id="phone" name="phone">
+          </div>
+     
+    </form>
+  
+    <span class="savebtn"></span>
+    <span class="cancel" id="cancel"></span>
+
+</div>
+</div>
+<div id="div">
+  <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong> You are not authorized to access this page</strong>
+    </div>
+</div>
+</div>
+</body>
+<script src="assets/js/edit.js"></script>
+</html>
+
+   

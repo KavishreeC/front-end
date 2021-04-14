@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+    <div id="div">
+    <h1>Login Form</h1>
+    <form class="form">
+       <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control email" id="email"  name="email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control password" id="pasword" name="password">
+        </div>
+        <button type="button" class="btn btn-primary" id="submit" onlick="submit1()">Login</button>  
+    </form>
+  </div>
+</div>
+
+  <!-- <button type="button" class="btn btn-primary my-2">Get user data</button> -->
+</body>
+</html>
+<script>
+ $( "#submit").on( "click", function() {
+    //  alert("helslo");
+     $div=$("#div");
+    var user = 
+    {
+      email: $div.find('input.email').val(),
+      password: $div.find('input.password').val(),
+    }
+    console.log(user)
+    // function showdata(users)
+    // {
+    //   var user_data='';
+    //     $.each(users.data,function(i,user){
+    //         id=user.id
+    //         user_data += '<tr>'
+    //         user_data += '<td>' +user.id+ '</td>'
+    //         user_data += '<td>' +user.username+ '</td>'
+    //         user_data += '<td>' +user.email+ '</td>'
+    //         user_data += '<td>' +user.phone+ '</td>'
+    //         user_data += '<td>' +'<button type="button" class="btn btn-primary" id="button1" onclick="view1('+id+')" data-id="{{id}}"> View</button>'+ '</td>'
+    //         user_data += '<td>' +'<button type="button" class="btn btn-primary" id="delete" onclick="Delete('+id+')" data-id="{{id}}"> Delete</button>'+ '</td>'
+    //         user_data += '</tr>'
+    //     });
+    //     $('#usertable').append(user_data);
+    
+    // }
+    function jwt(token)
+    {
+        jwt_token = token;
+        sessionStorage.setItem("uniquetoken",jwt_token)
+        t=sessionStorage.getItem('uniquetoken'),
+        console.log("ttt",t)
+        $.ajax({
+        url:  "http://localhost:3000/api/v1/users",
+        headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer "+t
+        },
+         type:"GET",    
+         datatype: 'JSON',
+        //  ContentType: "application/json",
+         success:
+         function (temp){
+           
+            console.log(temp.data)
+            // users  = temp;
+            // showdata(users);
+             window.location.href="sample.html";
+           
+          },
+          error:
+          function(temp)
+          {
+            console.log(temp.token)
+          }
+        });
+    }
+
+ $.ajax({
+         type:"POST",    
+         datatype: 'JSON',
+         url:  "http://localhost:3000/authenticate",
+        //  ContentType: "application/json",
+         data:user,
+         success:
+         function (temp){
+          console.log(temp.auth_token);
+          token = temp.auth_token;
+          jwt(token);
+          }
+        });
+    });
+</script>
