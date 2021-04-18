@@ -25,7 +25,7 @@ $( window ).on( "load", function() {
        
         type:"GET",    
         datatype: 'JSON',
-        url: "http://localhost:3000/api/v1/users",
+        url: "https://api-app1.herokuapp.com/api/v1/users",
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -60,7 +60,7 @@ function Delete(id)
     ({
         type:"DELETE",    
         datatype: 'JSON',
-        url: "http://localhost:3000/api/v1/users/"+$(this).attr("user_id"),
+        url: "https://api-app1.herokuapp.com/api/v1/users/"+$(this).attr("user_id"),
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",

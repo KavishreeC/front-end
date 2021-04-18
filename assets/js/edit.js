@@ -46,7 +46,7 @@ $( window ).on( "load", function() {
         ({
             type:"GET",    
             datatype: 'JSON',
-            url: "http://localhost:3000/api/v1/users/"+$(this).attr("btn"),
+            url: "https://api-app1.herokuapp.com/api/v1/users/"+$(this).attr("btn"),
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -92,7 +92,7 @@ function edit(id)
     ({
         type:"GET",    
         datatype: 'JSON',
-        url: "http://localhost:3000/api/v1/users/"+$(this).attr("userid"),
+        url: "https://api-app1.herokuapp.com/api/v1/users/"+$(this).attr("userid"),
         headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
@@ -138,7 +138,7 @@ function save(id)
     $.ajax({
         type:"PUT",    
         datatype: 'JSON',
-        url: "http://localhost:3000/api/v1/users/"+$(this).attr("u_id"),
+        url: "https://api-app1.herokuapp.com/api/v1/users/"+$(this).attr("u_id"),
         headers: {
             "Accept": "application/json",
             "Authorization": "Bearer "+token
